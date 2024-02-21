@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+</head>
+<body>
+
+    <form id="taskForm">
+        <label for="taskInput">Task:</label>
+        <input type="text" id="taskInput" placeholder="Enter your task">
+        <button type="submit" id="submitButton" disabled>Submit</button>
+    </form>
+
+    <ul id="taskList"></ul>
+
+    <script>
+        // Query for the submit button and input task field
+        const submitButton = document.getElementById('submitButton');
+        const newTaskInput = document.getElementById('taskInput');
+        const taskList = document.getElementById('taskList');
+
+        // Disable the submit button by default
+        submitButton.disabled = true;
+
+        // Listen for input to be typed into the input field
+        newTaskInput.addEventListener('input', function () {
+            // Enable/disable the submit button based on input presence
+            submitButton.disabled = !newTaskInput.value.trim();
+        });
+
+        // Listen to the submission form
+        document.getElementById('taskForm').addEventListener('submit', function (event) {
+            // Prevent the default form submission
+            event.preventDefault();
+
+            // Find the task the user just submitted
+            const taskValue = newTaskInput.value.trim();
+
+            // Create a list item for the new task
+            const newTaskItem = document.createElement('li');
+            newTaskItem.textContent = taskValue;
+
+            // Add the new element to our unordered list
+            taskList.appendChild(newTaskItem);
+
+            // Clear the input field
+            newTaskInput.value = '';
+
+            // Disable the submit button again
+            submitButton.disabled = true;
+        });
+
+        // At the end of the script, add the line return false
+        // This prevents the default submission of the form
+        return false;
+    </script>
+
+</body>
+</html>
